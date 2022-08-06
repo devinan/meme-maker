@@ -10,6 +10,7 @@ const colorOptions = Array.from(
 );
 const color = document.getElementById("color");
 const lineWidth = document.getElementById("line-width");
+const fontSize = document.getElementById("font-size");
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 
@@ -19,6 +20,7 @@ const CANVAS_HEIGHT = 800;
 canvas.width = CANVAS_WIDTH;
 canvas.height = CANVAS_HEIGHT;
 ctx.lineWidth = lineWidth.value;
+ctx.font = `${fontSize.value}px sans-serif`;
 ctx.lineCap = "round";
 
 let isPainting = false;
@@ -51,6 +53,10 @@ function onCanvasClick() {
 
 function onLineWidthChange(event) {
   ctx.lineWidth = event.target.value;
+}
+
+function onFontSizeChange() {
+  ctx.font = `${fontSize.value}px sans-serif`;
 }
 
 function onColorChange(event) {
@@ -101,7 +107,6 @@ function onDoubleClick(event) {
   if (text !== "") {
     ctx.save();
     ctx.lineWidth = 1;
-    ctx.font = "68px serif";
     ctx.fillText(text, event.offsetX, event.offsetY);
     ctx.restore();
   }
@@ -122,6 +127,7 @@ canvas.addEventListener("mouseup", cancelPainting);
 canvas.addEventListener("mouseleave", cancelPainting);
 canvas.addEventListener("click", onCanvasClick);
 lineWidth.addEventListener("change", onLineWidthChange);
+fontSize.addEventListener("change", onFontSizeChange);
 color.addEventListener("change", onColorChange);
 
 colorOptions.forEach((color) => color.addEventListener("click", onColorClick));
